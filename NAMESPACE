@@ -1,0 +1,15 @@
+export(eq_clean_data)
+export(geom_timeline)
+export(geom_timeline_label)
+export(eq_map)
+export(eq_create_label)
+
+import("grid")
+import("ggplot2")
+import("leaflet")
+
+importFrom("magrittr", "%>%")
+importFrom("stringr", "str_trim")
+importFrom("stringi", "str_replace","stri_trans_totitle")
+importFrom("lubridate", "ymd")
+importFrom("dplyr", "filter", "arrange_", "desc", "mutate", "mutate_", "select", "select_", "slice_")

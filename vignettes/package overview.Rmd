@@ -1,0 +1,73 @@
+---
+title: "Package Overview"
+author: "khailper"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(warning = FALSE)
+library(tidyverse)
+devtools::load_all()
+```
+
+Hi! Welcome to the package for the capstone of the Mastering Software Development in R Specialization. This package contains functions designed to enable processing
+and visualization of U.S. National Oceanographic and Atmospheric Administration (NOAA) data on earthquakes (also included in the package). Let's take a look at that 
+data.
+
+```{r raw data}
+data("earthquakes")
+earthquakes
+```
+
+In addition to the data having a lot of NAs, there are some problems with how the data is structured. The date is spread across columns for year, month, and day. The
+location column repeats information stored in the country prolem. Additionally, R interpreted several columsn that should be numeric values as characters. Fortunately,
+the function eq_clean_data is designed to address these problems. It takes a data frame and a character string corresponding to the location column as its 
+parameters.
+
+```{r clean data}
+data_set <- eq_clean_data(earthquakes, "LOCATION_NAME")
+#rows selected to have a reasonable mix of NAs and values in DATE
+data_set %>% select(LOCATION_NAME, DATE) %>% slice(310:320)
+```
+Better, but now we need to actually do something with the data.  Lets visualize it. The geom_timeline() function builds on ggplot2 to create timelines of earthquakes.
+For simplicity, we're just looking at one year's worth of earthquakes in one country. If we were to plot all the data, the timeline would be too crowded to be useful. 
+It's important to use the date column as the x aes. In additonal to the aes options used here, there is also y (usefulfor plotting different countries on different lines) and alpha.
+
+```{r basic plot}
+data_set %>%
+        dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
+        ggplot() +
+        geom_timeline(aes(x = DATE, size = EQ_PRIMARY, colour = TOTAL_DEATHS, fill = TOTAL_DEATHS))
+```
+
+If you want to know what locations go with each earthquake, there is the geom_timeline_label() function to layer on top of geom_timeline(). Like geom_timeline(), there are x and y options for aes.  It's important to use the same value for both geoms. In addition there is a label aes for the column to be used for the annotations. Lastly there are two optional aes, n_max (an integer) and max_aes (a column name.  If used (and you need to use either both or neither), only the earthquakes with the top n_max values of max_aes will have annotations.  By default, geom_timeline_label() adds annotion to every earthquake.
+
+```{r annotated plot}
+data_set %>%
+        dplyr::filter((COUNTRY == "MEXICO" | COUNTRY =="CANADA") & lubridate::year(DATE) >= 2000) %>%
+        ggplot() +
+        geom_timeline(aes(x = DATE, y = COUNTRY, size = EQ_PRIMARY, colour = TOTAL_DEATHS, fill = TOTAL_DEATHS)) +
+        geom_timeline_label(aes(x = DATE, y = COUNTRY, label = LOCATION_NAME, n_max = 6, max_aes = EQ_PRIMARY))
+```
+
+Lastly, the package contains two functions for visualizing earthquakes on a map. The first is eq_map, which takes a data frame and a column name as a string.  eq map plots the earthquakes using Leaflet with dots proportional to the magnitude of each earthquake.  The data from the chosen column are added as popups to the earthquakes.
+
+```{r basic map}
+data_set %>%
+        dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
+        eq_map(annot_col = "DATE")
+```
+
+The last function in the package is eq_create_label(), which takes an earthqauke data frame and returns a vector of strings with length equal to the number of rows in the data_frame for use as a column in the data frame.  Each element in the vector is a label for the correspnding earthquake (i.e. the 5th string is built from the 5th earthquake) that creates a an html formatted label with the location, magnitude, and death toll of that earthquake.  If one of those elements is NA for that earthquake, that line is omitted.
+
+```{r map with labels}
+data_set %>% 
+        dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
+        dplyr::mutate(popup_text = eq_create_label(.)) %>%
+        eq_map(annot_col = "popup_text")
+```
