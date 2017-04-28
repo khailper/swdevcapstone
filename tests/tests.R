@@ -1,4 +1,5 @@
 library(testthat)
+library(swdevcapstone)
 
 #test eq_location_clean
 test_that("loc clean",{
