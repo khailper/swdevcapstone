@@ -17,6 +17,7 @@ library(ggplot2)
 library(leaflet)
 library(stringr)
 library(stringi)
+library(roxygen2)
 devtools::load_all()
 ```
 
