@@ -11,7 +11,12 @@ vignette: >
 
 ```{r setup, echo=FALSE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(warning = FALSE)
-library(tidyverse)
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(leaflet)
+library(stringr)
+library(stringi)
 devtools::load_all()
 ```
 
