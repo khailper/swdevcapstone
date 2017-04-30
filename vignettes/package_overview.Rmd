@@ -36,7 +36,7 @@ the function eq_clean_data is designed to address these problems. It takes a dat
 parameters.
 
 ```{r clean data}
-data_set <- eq_clean_data(earthquakes, "LOCATION_NAME")
+data_set <- eq_clean_data(earthquakes, LOCATION_NAME)
 #rows selected to have a reasonable mix of NAs and values in DATE
 data_set %>% select(LOCATION_NAME, DATE) %>% slice(310:320)
 ```
@@ -66,7 +66,7 @@ Lastly, the package contains two functions for visualizing earthquakes on a map.
 ```{r basic map}
 data_set %>%
         dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
-        eq_map(annot_col = "DATE")
+        eq_map(annot_col = DATE)
 ```
 
 The last function in the package is eq_create_label(), which takes an earthqauke data frame and returns a vector of strings with length equal to the number of rows in the data_frame for use as a column in the data frame.  Each element in the vector is a label for the correspnding earthquake (i.e. the 5th string is built from the 5th earthquake) that creates a an html formatted label with the location, magnitude, and death toll of that earthquake.  If one of those elements is NA for that earthquake, that line is omitted.
@@ -75,5 +75,5 @@ The last function in the package is eq_create_label(), which takes an earthqauke
 data_set %>% 
         dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
         dplyr::mutate(popup_text = eq_create_label(.)) %>%
-        eq_map(annot_col = "popup_text")
+        eq_map(annot_col = popup_text)
 ```

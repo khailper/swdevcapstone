@@ -40,7 +40,7 @@ Function draws an earthquake timeline using a dataframe cleaned with eq_clean_da
 }
 \examples{
 \dontrun{
-earthquakes \%>\%
+earthquakes \%>\% eq_clean_data(LOCATION_NAME) \%>\%
 dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) \%>\%
 ggplot() +
 geom_timeline(aes(x = DATE, size = EQ_PRIMARY, colour = TOTAL_DEATHS, fill = TOTAL_DEATHS))

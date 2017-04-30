@@ -112,7 +112,7 @@ GeomTimeline <- ggplot2::ggproto("GeomTimeline", Geom,
 #'
 #' @examples
 #' \dontrun{
-#' earthquakes %>%
+#' earthquakes %>% eq_clean_data(LOCATION_NAME) %>%
 #' dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
 #' ggplot() +
 #' geom_timeline(aes(x = DATE, size = EQ_PRIMARY, colour = TOTAL_DEATHS, fill = TOTAL_DEATHS))
@@ -143,8 +143,8 @@ GeomTimelineLabel <- ggplot2::ggproto("GeomTimelineLabel", Geom,
                        draw_key = draw_key_text,
                        draw_panel = function(data, panel_scales, coord) {
 
-                               #return error if n_max isn't an integer and either one n_max and max_aes are NULL but the other isn'
-                               if(is.integer(data$n_max) == FALSE){
+                               #return error if n_max isn't an integer and either one n_max and max_aes are NULL but the other isn't
+                               if((is.numeric(data$n_max[1]) == FALSE) | (data$n_max[1] %% 1 != 0)){
                                        stop("n_max needs to be an integer value")
                                }
 
@@ -274,7 +274,7 @@ eq_map <- function(clean_data_frame, annot_col){
 #' earthquakes %>% eq_clean_data(LOCATION_NAME) %>%
 #' dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
 #' dplyr::mutate(popup_text = eq_create_label(.)) %>%
-#' eq_map(annot_col = "popup_text")
+#' eq_map(annot_col = popup_text)
 #'}
 #'
 #' @export
