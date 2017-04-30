@@ -1,7 +1,7 @@
 # swdevcapstone
 
 The goal of swdevcapstone is to provide tools to analyse and visualize an included dataset on earthquakes around the world.
-https://travis-ci.org/khailper/swdevcapstone.svg?branch=master
+[![Build Status](https://travis-ci.org/khailper/swdevcapstone.svg?branch=master)](https://travis-ci.org/khailper/swdevcapstone.svg?branch=master)
 
 ## Installation
 
