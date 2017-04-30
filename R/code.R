@@ -32,8 +32,7 @@ eq_location_clean <- function(column_id){
 #'
 #'@examples
 #'\dontrun{
-#' data_set <- data("earthquakes")
-#' eq_clean_data(data_set, "LOCATION_NAME")
+#' eq_clean_data(earthquakes, "LOCATION_NAME")
 #' }
 #'
 #'@export
@@ -118,7 +117,6 @@ GeomTimeline <- ggplot2::ggproto("GeomTimeline", Geom,
 #'
 #' @examples
 #' \dontrun{
-#' data("earthquakes")
 #' earthquakes %>%
 #' dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
 #' ggplot() +
@@ -214,7 +212,6 @@ GeomTimelineLabel <- ggplot2::ggproto("GeomTimelineLabel", Geom,
 #'
 #' @examples
 #' \dontrun{
-#' data("earthquakes")
 #' earthquakes %>% eq_clean_data("LOCATION_NAME") %>%
 #' dplyr::filter((COUNTRY == "MEXICO" | COUNTRY =="CANADA") & lubridate::year(DATE) >= 2000) %>%
 #' ggplot() +
@@ -249,7 +246,6 @@ geom_timeline_label <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @return Leaflet map (technically returns NULL and draws map to plotting object)
 #' @examples
 #' \dontrun{
-#' data("earthquakes")
 #' earthquakes %>% eq_clean_data("LOCATION_NAME") %>%
 #' dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
 #' eq_map(annot_col = "DATE")
@@ -273,7 +269,6 @@ eq_map <- function(clean_data_frame, annot_col){
 #' @return List of character objects that can be used to create labels in eq_map.
 #' @examples
 #' \dontrun{
-#' data("earthquakes")
 #' earthquakes %>% eq_clean_data("LOCATION_NAME") %>%
 #' dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
 #' dplyr::mutate(popup_text = eq_create_label(.)) %>%
