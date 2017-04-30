@@ -47,10 +47,8 @@ eq_clean_data <- function(raw_data, column_id){
 #'Draw earthquake timeline
 #'
 #'Function draws an earthquake timeline using a dataframe cleaned with eq_clean_data.  This function is used by geom_timeline rather than called directly.
-#'In the interest of citing one's sources, most of the point implementation is recycling code from ggplot2's geom_point.
-#'
-#'@param aes column names containing variables to be mapped to x (intended use:date), y, size, and colour.  Other aes are available, but the user shouldn't
-#'change defaults. They're only there becasue hard-coding them in resulted in errors.
+#'In the interest of citing one's sources, most of the point implementation is recycling code from ggplot2's geom_point. aes values are x (intended use:date), y,
+#'size, and colour.  Other aes are available, but the user shouldn't change defaults. They're only there becasue hard-coding them in resulted in errors.
 #'
 GeomTimeline <- ggplot2::ggproto("GeomTimeline", Geom,
                        required_aes = c("x"),
@@ -134,10 +132,8 @@ geom_timeline <- function(mapping = NULL, data = NULL, stat = "identity",
 #'
 #'Function adds an annotation to an earthquake timeline built with geom_timeline.  Annotation shares some aes with geom_timeline. User is responsible for making sure
 #'values are the same between the two geoms. This function is used by geom_timeline_label rather than called directly.  With more time, may look into implementing
-#'n_max as a stat rather than as an aes.
-#'
-#'@param aes column names containing variables to be mapped to x (intended use:date), label (location name), n_max (an integer),
-#'max_aes(aes to apply n_max, magnitude), and y)
+#'n_max as a stat rather than as an aes.  Aes values are  x (intended use:date), label (location name), n_max (an integer), max_aes(aes to apply n_max, magnitude),
+#'and y).
 #'
 GeomTimelineLabel <- ggplot2::ggproto("GeomTimelineLabel", Geom,
                        required_aes = c("x", "label"),

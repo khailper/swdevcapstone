@@ -17,7 +17,6 @@ test_that("data_clean",{
 
 #test both geoms
 test_that("geom_tests",{
-        #check for expected warning
                 g <-  earthquakes %>%  eq_clean_data("LOCATION_NAME") %>%
                 ggplot2::ggplot() +
                 geom_timeline(aes(x = DATE, y = COUNTRY, size = EQ_PRIMARY, colour = TOTAL_DEATHS, fill = TOTAL_DEATHS)) +

@@ -8,13 +8,10 @@
 \usage{
 GeomTimelineLabel
 }
-\arguments{
-\item{aes}{column names containing variables to be mapped to x (intended use:date), label (location name), n_max (an integer),
-max_aes(aes to apply n_max, magnitude), and y)}
-}
 \description{
 Function adds an annotation to an earthquake timeline built with geom_timeline.  Annotation shares some aes with geom_timeline. User is responsible for making sure
 values are the same between the two geoms. This function is used by geom_timeline_label rather than called directly.  With more time, may look into implementing
-n_max as a stat rather than as an aes.
+n_max as a stat rather than as an aes.  Aes values are  x (intended use:date), label (location name), n_max (an integer), max_aes(aes to apply n_max, magnitude),
+and y).
 }
 \keyword{datasets}

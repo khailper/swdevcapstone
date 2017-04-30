@@ -8,12 +8,9 @@
 \usage{
 GeomTimeline
 }
-\arguments{
-\item{aes}{column names containing variables to be mapped to x (intended use:date), y, size, and colour.  Other aes are available, but the user shouldn't
-change defaults. They're only there becasue hard-coding them in resulted in errors.}
-}
 \description{
 Function draws an earthquake timeline using a dataframe cleaned with eq_clean_data.  This function is used by geom_timeline rather than called directly.
-In the interest of citing one's sources, most of the point implementation is recycling code from ggplot2's geom_point.
+In the interest of citing one's sources, most of the point implementation is recycling code from ggplot2's geom_point. aes values are x (intended use:date), y,
+size, and colour.  Other aes are available, but the user shouldn't change defaults. They're only there becasue hard-coding them in resulted in errors.
 }
 \keyword{datasets}
