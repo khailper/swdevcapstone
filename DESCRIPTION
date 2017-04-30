@@ -3,7 +3,7 @@ Type: Package
 Title: NOAA Data Processing and Visualization 
 Version: 0.1.0
 Author: khailper
-Maintainer: Karl Hailperin <email omitted>
+Maintainer: Karl Hailperin <private@confidential.com>
 Depends: R (>= 2.10.0)
 Description: Package for clean and visualizing included NOAA data on earthquakes.
 License: GPL-3
