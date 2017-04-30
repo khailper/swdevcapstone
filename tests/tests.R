@@ -1,13 +1,6 @@
 library(testthat)
 library(swdevcapstone)
 
-#test eq_location_clean
-test_that("loc clean",{
-        data_set <- data("earthquakes")
-        loc_clean_test <- eq_location_clean(data_set$LOCATION_NAME)
-        expect_that(loc_clean_test,is_a("character"))
-})
-
 #test eq_clean_data
 test_that("data_clean",{
         data_set <- data("earthquakes")

@@ -7,8 +7,10 @@
 #'@return The cleaned up column. Note that the function does not return the entire dataframe
 #'
 #' @examples
+#' \dontrun{
 #' data_set <- data("earthquakes")
 #' eq_location_clean(data_set$LOCATION_NAME)
+#' }
 
 eq_location_clean <- function(column_id){
         clean_column <- column_id %>% stringr::str_replace(pattern = "^.*:", replacement = "") %>% stringr::str_trim() %>% stringi::stri_trans_totitle()
@@ -29,8 +31,10 @@ eq_location_clean <- function(column_id){
 #'@return a cleaned data frame
 #'
 #'@examples
+#'\dontrun{
 #' data_set <- data("earthquakes")
 #' eq_clean_data(data_set, "LOCATION_NAME")
+#' }
 #'
 #'@export
 eq_clean_data <- function(raw_data, column_id){
@@ -112,11 +116,14 @@ GeomTimeline <- ggplot2::ggproto("GeomTimeline", Geom,
 #'
 #' @return adds timeline to ggplot object (technically, returns NULL)
 #'
-#' @examples data("earthquakes")
+#' @examples
+#' \dontrun{
+#' data("earthquakes")
 #' earthquakes %>%
 #' dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
 #' ggplot() +
 #' geom_timeline(aes(x = DATE, size = EQ_PRIMARY, colour = TOTAL_DEATHS, fill = TOTAL_DEATHS))
+#' }
 #'
 #' @export
 geom_timeline <- function(mapping = NULL, data = NULL, stat = "identity",
@@ -205,12 +212,15 @@ GeomTimelineLabel <- ggplot2::ggproto("GeomTimelineLabel", Geom,
 #'
 #' @return adds annotation to ggplot object (technically, returns NULL)
 #'
-#' @examples data("earthquakes")
+#' @examples
+#' \dontrun{
+#' data("earthquakes")
 #' earthquakes %>% eq_clean_data("LOCATION_NAME") %>%
 #' dplyr::filter((COUNTRY == "MEXICO" | COUNTRY =="CANADA") & lubridate::year(DATE) >= 2000) %>%
 #' ggplot() +
 #' geom_timeline(aes(x = DATE, y = COUNTRY, size = EQ_PRIMARY, colour = TOTAL_DEATHS, fill = TOTAL_DEATHS)) +
 #' geom_timeline_label(aes(x = DATE, y = COUNTRY, label = LOCATION_NAME, n_max = 10, max_aes = EQ_PRIMARY))
+#'}
 #'
 #' @export
 geom_timeline_label <- function(mapping = NULL, data = NULL, stat = "identity",
@@ -237,10 +247,13 @@ geom_timeline_label <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @param annot_col Column to be used for creating label
 #'
 #' @return Leaflet map (technically returns NULL and draws map to plotting object)
-#' @examples data("earthquakes")
+#' @examples
+#' \dontrun{
+#' data("earthquakes")
 #' earthquakes %>% eq_clean_data("LOCATION_NAME") %>%
 #' dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
 #' eq_map(annot_col = "DATE")
+#'}
 #'
 #' @export
 eq_map <- function(clean_data_frame, annot_col){
@@ -258,11 +271,14 @@ eq_map <- function(clean_data_frame, annot_col){
 #' @param clean_data_frame  Data frame of earthquake data that has been processed with eq_clean_data.
 #'
 #' @return List of character objects that can be used to create labels in eq_map.
-#' @examples data("earthquakes")
+#' @examples
+#' \dontrun{
+#' data("earthquakes")
 #' earthquakes %>% eq_clean_data("LOCATION_NAME") %>%
 #' dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
 #' dplyr::mutate(popup_text = eq_create_label(.)) %>%
 #' eq_map(annot_col = "popup_text")
+#'}
 #'
 #' @export
 eq_create_label <- function(clean_data_frame){
