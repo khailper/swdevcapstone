@@ -20,7 +20,8 @@ date into YEAR, MONTH, and DAY column.  Location data needs to be in LATITUDE an
 Function is case sensitive.  Future work should focus on making eq_clean_data operate like dplyr, taking column names rather than strings.
 }
 \examples{
-data_set <- data("earthquakes")
-eq_clean_data(data_set, "LOCATION_NAME")
+\dontrun{
+eq_clean_data(earthquakes, "LOCATION_NAME")
+}
 
 }

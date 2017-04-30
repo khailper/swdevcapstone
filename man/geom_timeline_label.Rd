@@ -40,11 +40,12 @@ adds annotation to ggplot object (technically, returns NULL)
 values are the same between the two geoms.
 }
 \examples{
-data("earthquakes")
+\dontrun{
 earthquakes \%>\% eq_clean_data("LOCATION_NAME") \%>\%
 dplyr::filter((COUNTRY == "MEXICO" | COUNTRY =="CANADA") & lubridate::year(DATE) >= 2000) \%>\%
 ggplot() +
 geom_timeline(aes(x = DATE, y = COUNTRY, size = EQ_PRIMARY, colour = TOTAL_DEATHS, fill = TOTAL_DEATHS)) +
 geom_timeline_label(aes(x = DATE, y = COUNTRY, label = LOCATION_NAME, n_max = 10, max_aes = EQ_PRIMARY))
+}
 
 }

@@ -20,9 +20,10 @@ The function also takes a column name (as a string) to use to create hoverover l
 like dplyr, taking column names rather than strings.
 }
 \examples{
-data("earthquakes")
+\dontrun{
 earthquakes \%>\% eq_clean_data("LOCATION_NAME") \%>\%
 dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) \%>\%
 eq_map(annot_col = "DATE")
+}
 
 }

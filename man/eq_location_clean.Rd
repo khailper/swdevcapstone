@@ -15,7 +15,3 @@ The cleaned up column. Note that the function does not return the entire datafra
 \description{
 Cleans up a column by removiewing everything up to and including the rightmost column, removing excess whitespace, and transforming the text to title case.
 }
-\examples{
-data_set <- data("earthquakes")
-eq_location_clean(data_set$LOCATION_NAME)
-}
