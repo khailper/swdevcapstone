@@ -6,11 +6,6 @@
 #'
 #'@return The cleaned up column. Note that the function does not return the entire dataframe
 #'
-#' @examples
-#' \dontrun{
-#' data_set <- data("earthquakes")
-#' eq_location_clean(data_set$LOCATION_NAME)
-#' }
 
 eq_location_clean <- function(column_id){
         clean_column <- column_id %>% stringr::str_replace(pattern = "^.*:", replacement = "") %>% stringr::str_trim() %>% stringi::stri_trans_totitle()
