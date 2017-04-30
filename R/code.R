@@ -17,7 +17,7 @@ eq_location_clean <- function(column_id){
 #'
 #'Cleans up data frame by creating a date column, converting lat/long, deaths, and magnitude to numeric rather than character, and applying eq_location_clean.  Function assumes data splits
 #'date into YEAR, MONTH, and DAY column.  Location data needs to be in LATITUDE and LONGITUDE columns.
-#' Function is case sensitive.  Future work should focus on making eq_clean_data operate like dplyr, taking column names rather than strings.
+#' Function is case sensitive.
 #'
 #'@param raw_data the data frame to be cleaned
 #'
@@ -27,11 +27,13 @@ eq_location_clean <- function(column_id){
 #'
 #'@examples
 #'\dontrun{
-#' eq_clean_data(earthquakes, "LOCATION_NAME")
+#' eq_clean_data(earthquakes, LOCATION_NAME)
 #' }
 #'
 #'@export
 eq_clean_data <- function(raw_data, column_id){
+
+        column_id <- deparse(substitute(column_id))
 
         new_data <- dplyr::mutate_(raw_data, .dots = stats::setNames(list( ~ paste(YEAR, MONTH, DAY, sep = "/")), "DATE"))
         new_data <- dplyr::select_(new_data, .dots = c("-YEAR", "-MONTH", "DAY"))
@@ -141,7 +143,14 @@ GeomTimelineLabel <- ggplot2::ggproto("GeomTimelineLabel", Geom,
                        draw_key = draw_key_text,
                        draw_panel = function(data, panel_scales, coord) {
 
-                               #To do: return error if n_max isn't an integer and either one n_max and max_aes are NULL but the other isn't
+                               #return error if n_max isn't an integer and either one n_max and max_aes are NULL but the other isn'
+                               if(is.integer(data$n_max) == FALSE){
+                                       stop("n_max needs to be an integer value")
+                               }
+
+                               if((is.null(data$n_max) == is.null(data$max_aes)) == FALSE){
+                                        stop("Either both or neither of n_max and max_aes must be NULL")
+                               }
 
                                if (is.null(data$n_max) == FALSE){
                                        #subset to max
@@ -203,7 +212,7 @@ GeomTimelineLabel <- ggplot2::ggproto("GeomTimelineLabel", Geom,
 #'
 #' @examples
 #' \dontrun{
-#' earthquakes %>% eq_clean_data("LOCATION_NAME") %>%
+#' earthquakes %>% eq_clean_data(LOCATION_NAME) %>%
 #' dplyr::filter((COUNTRY == "MEXICO" | COUNTRY =="CANADA") & lubridate::year(DATE) >= 2000) %>%
 #' ggplot() +
 #' geom_timeline(aes(x = DATE, y = COUNTRY, size = EQ_PRIMARY, colour = TOTAL_DEATHS, fill = TOTAL_DEATHS)) +
@@ -228,8 +237,7 @@ geom_timeline_label <- function(mapping = NULL, data = NULL, stat = "identity",
 #' Create earthquake map
 #'
 #' Function takes a data frame cleaned with eq_clean_data and creates a leadlet map that plots earthquakes with size based on the magnitude of the earthquake.
-#' The function also takes a column name (as a string) to use to create hoverover labels for the point. Future work should focus on making eq_clean_data operate
-#' like dplyr, taking column names rather than strings.
+#' The function also takes a column name (as a string) to use to create hoverover labels for the point.
 #'
 #' @param clean_data_frame Data frame cleaned with eq_clean_data
 #' @param annot_col Column to be used for creating label
@@ -237,13 +245,16 @@ geom_timeline_label <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @return Leaflet map (technically returns NULL and draws map to plotting object)
 #' @examples
 #' \dontrun{
-#' earthquakes %>% eq_clean_data("LOCATION_NAME") %>%
+#' earthquakes %>% eq_clean_data(LOCATION_NAME) %>%
 #' dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
-#' eq_map(annot_col = "DATE")
+#' eq_map(annot_col = DATE)
 #'}
 #'
 #' @export
 eq_map <- function(clean_data_frame, annot_col){
+
+        annot_col <- deparse(substitute(annot_col))
+
         leaflet_map <- leaflet::leaflet() %>% leaflet::addTiles() %>% leaflet::addCircleMarkers(data = clean_data_frame, radius = ~ EQ_PRIMARY * 1.5, lng = ~ LONGITUDE,
                                                                      lat = ~ LATITUDE, popup  = ~ clean_data_frame[[annot_col]])
         leaflet_map
@@ -260,7 +271,7 @@ eq_map <- function(clean_data_frame, annot_col){
 #' @return List of character objects that can be used to create labels in eq_map.
 #' @examples
 #' \dontrun{
-#' earthquakes %>% eq_clean_data("LOCATION_NAME") %>%
+#' earthquakes %>% eq_clean_data(LOCATION_NAME) %>%
 #' dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
 #' dplyr::mutate(popup_text = eq_create_label(.)) %>%
 #' eq_map(annot_col = "popup_text")

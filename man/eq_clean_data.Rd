@@ -17,11 +17,11 @@ a cleaned data frame
 \description{
 Cleans up data frame by creating a date column, converting lat/long, deaths, and magnitude to numeric rather than character, and applying eq_location_clean.  Function assumes data splits
 date into YEAR, MONTH, and DAY column.  Location data needs to be in LATITUDE and LONGITUDE columns.
-Function is case sensitive.  Future work should focus on making eq_clean_data operate like dplyr, taking column names rather than strings.
+Function is case sensitive.
 }
 \examples{
 \dontrun{
-eq_clean_data(earthquakes, "LOCATION_NAME")
+eq_clean_data(earthquakes, LOCATION_NAME)
 }
 
 }

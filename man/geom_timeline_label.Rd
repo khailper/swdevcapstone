@@ -41,7 +41,7 @@ values are the same between the two geoms.
 }
 \examples{
 \dontrun{
-earthquakes \%>\% eq_clean_data("LOCATION_NAME") \%>\%
+earthquakes \%>\% eq_clean_data(LOCATION_NAME) \%>\%
 dplyr::filter((COUNTRY == "MEXICO" | COUNTRY =="CANADA") & lubridate::year(DATE) >= 2000) \%>\%
 ggplot() +
 geom_timeline(aes(x = DATE, y = COUNTRY, size = EQ_PRIMARY, colour = TOTAL_DEATHS, fill = TOTAL_DEATHS)) +

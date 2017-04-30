@@ -16,14 +16,13 @@ Leaflet map (technically returns NULL and draws map to plotting object)
 }
 \description{
 Function takes a data frame cleaned with eq_clean_data and creates a leadlet map that plots earthquakes with size based on the magnitude of the earthquake.
-The function also takes a column name (as a string) to use to create hoverover labels for the point. Future work should focus on making eq_clean_data operate
-like dplyr, taking column names rather than strings.
+The function also takes a column name (as a string) to use to create hoverover labels for the point.
 }
 \examples{
 \dontrun{
-earthquakes \%>\% eq_clean_data("LOCATION_NAME") \%>\%
+earthquakes \%>\% eq_clean_data(LOCATION_NAME) \%>\%
 dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) \%>\%
-eq_map(annot_col = "DATE")
+eq_map(annot_col = DATE)
 }
 
 }

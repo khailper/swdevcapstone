@@ -19,7 +19,7 @@ the label omits that line.
 }
 \examples{
 \dontrun{
-earthquakes \%>\% eq_clean_data("LOCATION_NAME") \%>\%
+earthquakes \%>\% eq_clean_data(LOCATION_NAME) \%>\%
 dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) \%>\%
 dplyr::mutate(popup_text = eq_create_label(.)) \%>\%
 eq_map(annot_col = "popup_text")
