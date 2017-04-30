@@ -1,6 +1,7 @@
 library(testthat)
-library(tidyverse)
+library(dplyr)
 library(lubridate)
+library(ggplot2)
 library(swdevcapstone)
 
 #test eq_clean_data
