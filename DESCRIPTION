@@ -1,6 +1,6 @@
 Package: swdevcapstone
 Type: Package
-Title: NOAA Data Processing and Visualizaint 
+Title: NOAA Data Processing and Visualization 
 Version: 0.1.0
 Author: khailper
 Maintainer: The package maintainer <yourself@somewhere.net>

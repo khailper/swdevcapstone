@@ -17,7 +17,7 @@ library(ggplot2)
 library(leaflet)
 library(stringr)
 library(stringi)
-library(swdevcapstone)
+#library(swdevcapstone)
 devtools::load_all()
 ```
 
