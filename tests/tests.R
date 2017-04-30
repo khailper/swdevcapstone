@@ -15,20 +15,12 @@ test_that("data_clean",{
 #test both geoms
 test_that("geom_tests",{
         #check for expected warning
-        expect_warning(earthquakes %>%
-                               dplyr::filter((COUNTRY == "MEXICO" | COUNTRY =="CANADA") & lubridate::year(DATE) >= 2000) %>%
-                               ggplot() +
-                               geom_timeline(aes(x = DATE, y = COUNTRY, size = EQ_PRIMARY, colour = TOTAL_DEATHS, fill = TOTAL_DEATHS)) +
-                               geom_timeline_label(aes(x = DATE, y = COUNTRY, label = LOCATION_NAME, n_max = 10, max_aes = LOCATION_NAME)),
-                       regexp = "numerical expression")
-
-
-        g <-  earthquakes %>%
+                g <-  earthquakes %>%  eq_clean_data("LOCATION_NAME") %>%
                 ggplot() +
                 geom_timeline(aes(x = DATE, y = COUNTRY, size = EQ_PRIMARY, colour = TOTAL_DEATHS, fill = TOTAL_DEATHS)) +
                 geom_timeline_label(aes(x = DATE, y = COUNTRY, label = LOCATION_NAME, n_max = 10, max_aes = LOCATION_NAME))
 
-        expect_that(g, is_a("list"))
+        expect_that(g, is_a("ggplot"))
 })
 
 #test map functions
@@ -40,7 +32,7 @@ test_that("map_tests",{
         expect_that(test_map_data$popup_text, is_a("character"))
 
         test_map <- test_map_data %>% eq_map(annot_col = "popup_text")
-        expect_that(test_map, is_a("list"))
+        expect_that(test_map, is_a("leaflet"))
 })
 
 
