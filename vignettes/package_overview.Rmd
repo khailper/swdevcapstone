@@ -17,8 +17,8 @@ library(ggplot2)
 library(leaflet)
 library(stringr)
 library(stringi)
-#library(swdevcapstone)
-devtools::load_all()
+library(swdevcapstone)
+#devtools::load_all()
 ```
 
 Hi! Welcome to the package for the capstone of the Mastering Software Development in R Specialization. This package contains functions designed to enable processing
