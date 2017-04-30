@@ -33,7 +33,7 @@ eq_location_clean <- function(column_id){
 #'@export
 eq_clean_data <- function(raw_data, column_id){
 
-        new_data <- dplyr::mutate_(raw_data, .dots = setNames(list( ~ paste(YEAR, MONTH, DAY, sep = "/")), "DATE"))
+        new_data <- dplyr::mutate_(raw_data, .dots = stats::setNames(list( ~ paste(YEAR, MONTH, DAY, sep = "/")), "DATE"))
         new_data <- dplyr::select_(new_data, .dots = c("-YEAR", "-MONTH", "DAY"))
         new_data$DATE <- lubridate::ymd(new_data$DATE)
         new_data$LATITUDE <- as.numeric(new_data$LATITUDE)
