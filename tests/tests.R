@@ -1,4 +1,6 @@
 library(testthat)
+library(tidyverse)
+library(lubridate)
 library(swdevcapstone)
 
 #test eq_clean_data
@@ -16,7 +18,7 @@ test_that("data_clean",{
 test_that("geom_tests",{
         #check for expected warning
                 g <-  earthquakes %>%  eq_clean_data("LOCATION_NAME") %>%
-                ggplot() +
+                ggplot2::ggplot() +
                 geom_timeline(aes(x = DATE, y = COUNTRY, size = EQ_PRIMARY, colour = TOTAL_DEATHS, fill = TOTAL_DEATHS)) +
                 geom_timeline_label(aes(x = DATE, y = COUNTRY, label = LOCATION_NAME, n_max = 10, max_aes = LOCATION_NAME))
 
